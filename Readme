@@ -1,0 +1,75 @@
+# Python Administrative Utility Script
+
+## 📌 Overview
+This project is a Python-based administrative utility script designed to perform common system administration tasks. It provides a simple menu-driven interface that allows users to retrieve system information, monitor disk usage, view running processes, back up directories, and clean temporary files.
+
+This script is intended for students and beginners learning Python scripting for IT and system administration purposes.
+
+---
+
+## 🛠 Features
+- Display system information (OS, CPU, RAM)
+- Check disk usage across partitions
+- View top running processes
+- Back up a directory into a ZIP file
+- Clean temporary files
+- Menu-based user interaction
+
+---
+
+## 🧰 Requirements
+- Python 3.x
+- `psutil` library
+
+Install required dependency:
+```bash
+pip install psutil
+▶️ How to Run
+Clone the repository:
+
+bash
+Copy code
+git clone https://github.com/YOUR_USERNAME/python-admin-utility.git
+Navigate to the project directory:
+
+bash
+Copy code
+cd python-admin-utility
+Run the script:
+
+bash
+Copy code
+python admin_utility.py
+📋 Menu Options
+System Information – Displays OS, processor, CPU cores, and RAM
+
+Disk Usage – Shows disk space usage per partition
+
+Running Processes – Displays top processes by CPU usage
+
+Backup Directory – Creates a ZIP backup of a selected directory
+
+Clean Temp Files – Deletes temporary files from the system temp folder
+
+Exit – Closes the program
+
+🎯 Learning Objectives
+Practice Python scripting for system administration
+
+Learn file handling and OS interaction
+
+Understand process and disk monitoring
+
+Gain experience using third-party libraries
+
+Apply Git and GitHub version control
+
+⚠️ Disclaimer
+This script performs system-level operations. Use caution when cleaning files or backing up directories. It is recommended to run this script in a test environment.
+
+👤 Author
+Darius Tentegue
+
+
+
+

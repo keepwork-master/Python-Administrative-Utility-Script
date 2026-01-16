@@ -1,0 +1,81 @@
+import os
+import shutil
+import platform
+import psutil
+from datetime import datetime
+
+def system_info():
+    print("\n--- System Information ---")
+    print(f"OS: {platform.system()} {platform.release()}")
+    print(f"Processor: {platform.processor()}")
+    print(f"CPU Cores: {psutil.cpu_count(logical=True)}")
+    print(f"RAM: {round(psutil.virtual_memory().total / (1024**3), 2)} GB")
+
+def disk_usage():
+    print("\n--- Disk Usage ---")
+    for partition in psutil.disk_partitions():
+        usage = psutil.disk_usage(partition.mountpoint)
+        print(f"{partition.device} - {round(usage.percent, 2)}% used")
+
+def running_processes():
+    print("\n--- Running Processes (Top 10 by CPU) ---")
+    processes = sorted(psutil.process_iter(['pid', 'name', 'cpu_percent']),
+                       key=lambda p: p.info['cpu_percent'],
+                       reverse=True)
+    for proc in processes[:10]:
+        print(f"PID {proc.info['pid']} - {proc.info['name']}")
+
+def backup_directory():
+    source = input("Enter directory to back up: ")
+    if not os.path.exists(source):
+        print("Directory does not exist.")
+        return
+
+    backup_name = f"backup_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
+    shutil.make_archive(backup_name, 'zip', source)
+    print(f"Backup created: {backup_name}.zip")
+
+def clean_temp_files():
+    temp_dir = os.getenv('TEMP') or '/tmp'
+    print(f"Cleaning temp directory: {temp_dir}")
+
+    try:
+        for item in os.listdir(temp_dir):
+            path = os.path.join(temp_dir, item)
+            if os.path.isfile(path):
+                os.remove(path)
+        print("Temporary files cleaned.")
+    except Exception as e:
+        print(f"Error cleaning temp files: {e}")
+
+def menu():
+    while True:
+        print("""
+--- Admin Task Menu ---
+1. System Information
+2. Disk Usage
+3. Running Processes
+4. Backup Directory
+5. Clean Temp Files
+6. Exit
+""")
+        choice = input("Select an option: ")
+
+        if choice == '1':
+            system_info()
+        elif choice == '2':
+            disk_usage()
+        elif choice == '3':
+            running_processes()
+        elif choice == '4':
+            backup_directory()
+        elif choice == '5':
+            clean_temp_files()
+        elif choice == '6':
+            print("Exiting...")
+            break
+        else:
+            print("Invalid choice")
+
+if __name__ == "__main__":
+    menu()
